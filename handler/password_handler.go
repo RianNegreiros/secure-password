@@ -7,22 +7,22 @@ import (
 	"github.com/RianNegreiros/secure-password/validator"
 )
 
-// PasswordRequest é a estrutura para a solicitação de senha
+// PasswordRequest is the structure for the password request
 type PasswordRequest struct {
 	Password string `json:"password"`
 }
 
-// ValidatePasswordHandler lida com as solicitações para validar senhas
+// ValidatePasswordHandler handles requests to validate passwords
 func ValidatePasswordHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
-		http.Error(w, "Método não permitido", http.StatusMethodNotAllowed)
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
 	// Check Content-Type
 	contentType := r.Header.Get("Content-Type")
 	if contentType != "application/json" {
-		http.Error(w, "O tipo de conteúdo deve ser application/json", http.StatusUnsupportedMediaType)
+		http.Error(w, "The content type must be application/json", http.StatusUnsupportedMediaType)
 		return
 	}
 
@@ -30,13 +30,13 @@ func ValidatePasswordHandler(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&req)
 	if err != nil {
-		http.Error(w, "Erro ao decodificar a solicitação JSON: "+err.Error(), http.StatusBadRequest)
+		http.Error(w, "Error decoding JSON request: "+err.Error(), http.StatusBadRequest)
 		return
 	}
 
 	err = validator.ValidatePassword(req.Password)
 	if err != nil {
-		http.Error(w, "Erro na validação da senha: "+err.Error(), http.StatusBadRequest)
+		http.Error(w, "Password validation error: "+err.Error(), http.StatusBadRequest)
 		return
 	}
 

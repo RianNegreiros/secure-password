@@ -22,34 +22,34 @@ const (
 	errSpecialChar = "A senha deve conter pelo menos um caractere especial (!@#$%)"
 )
 
-// ValidatePassword verifica se a senha atende aos critérios de segurança
+// ValidatePassword checks that the password meets the security criteria
 func ValidatePassword(password string) error {
 	var errors []string
 
-	// Verificar o comprimento mínimo da senha
+	// Check the minimum password length
 	if len(password) < minLength {
 		errors = append(errors, errMinLength)
 	}
 
-	// Verificar se contém pelo menos uma letra maiúscula
+	// Check that it contains at least one capital letter
 	hasUpperCase, _ := regexp.MatchString(upperCaseRegex, password)
 	if !hasUpperCase {
 		errors = append(errors, errUpperCase)
 	}
 
-	// Verificar se contém pelo menos uma letra minúscula
+	// Check that it contains at least one lowercase letter
 	hasLowerCase, _ := regexp.MatchString(lowerCaseRegex, password)
 	if !hasLowerCase {
 		errors = append(errors, errLowerCase)
 	}
 
-	// Verificar se contém pelo menos um dígito numérico
+	// Check that it contains at least one numeric digit
 	hasDigit, _ := regexp.MatchString(digitRegex, password)
 	if !hasDigit {
 		errors = append(errors, errDigit)
 	}
 
-	// Verificar se contém pelo menos um caractere especial
+	// Check if it contains at least one special character
 	hasSpecialChar, _ := regexp.MatchString(specialCharRegex, password)
 	if !hasSpecialChar {
 		errors = append(errors, errSpecialChar)
