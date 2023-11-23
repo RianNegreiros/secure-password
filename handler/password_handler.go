@@ -1,4 +1,3 @@
-// handler/password_handler.go
 package handler
 
 import (
@@ -20,17 +19,24 @@ func ValidatePasswordHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Check Content-Type
+	contentType := r.Header.Get("Content-Type")
+	if contentType != "application/json" {
+		http.Error(w, "O tipo de conteúdo deve ser application/json", http.StatusUnsupportedMediaType)
+		return
+	}
+
 	var req PasswordRequest
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&req)
 	if err != nil {
-		http.Error(w, "Erro ao decodificar a solicitação JSON", http.StatusBadRequest)
+		http.Error(w, "Erro ao decodificar a solicitação JSON: "+err.Error(), http.StatusBadRequest)
 		return
 	}
 
 	err = validator.ValidatePassword(req.Password)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		http.Error(w, "Erro na validação da senha: "+err.Error(), http.StatusBadRequest)
 		return
 	}
 
