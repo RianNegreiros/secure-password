@@ -4,7 +4,6 @@ package validator
 import (
 	"fmt"
 	"regexp"
-	"strings"
 )
 
 // ValidatePassword verifica se a senha atende aos critérios de segurança
@@ -15,12 +14,14 @@ func ValidatePassword(password string) error {
 	}
 
 	// Verificar se contém pelo menos uma letra maiúscula
-	if strings.ToUpper(password) == password {
+	hasUpperCase, _ := regexp.MatchString(`[A-Z]`, password)
+	if !hasUpperCase {
 		return fmt.Errorf("A senha deve conter pelo menos uma letra maiúscula")
 	}
 
 	// Verificar se contém pelo menos uma letra minúscula
-	if strings.ToLower(password) == password {
+	hasLowerCase, _ := regexp.MatchString(`[a-z]`, password)
+	if !hasLowerCase {
 		return fmt.Errorf("A senha deve conter pelo menos uma letra minúscula")
 	}
 
