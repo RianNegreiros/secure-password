@@ -1,12 +1,14 @@
 # Secure Password Validation
 
-This project provides a simple password validation API with basic security criteria.
+This is a challenge from [BackEndBrasil](https://github.com/backend-br/desafios/blob/master/secure-password/PROBLEM.md)
+
+The project provides a simple password validation API with basic security criteria.
 
 ## Getting Started
 
 To run the project locally, follow these steps:
 
-1.Clone the repository:
+1. Clone the repository:
 
 ```bash
   git clone https://github.com/RianNegreiros/secure-password.git
@@ -16,7 +18,6 @@ To run the project locally, follow these steps:
 
 ```bash
   cd secure-password
-
 ```
 
 3. Run the application:
@@ -35,7 +36,7 @@ The API will be accessible at `http://localhost:8080/validate-password`.
 - Request Body: JSON with a single field password
 - Response:
   - 204 No Content if the password meets the security criteria.
-  - 400 Bad Request with an error message if the password is invalid.
+  - 400 Bad Request with error messages if the password is invalid.
 
 ## Running Tests
 
@@ -45,7 +46,7 @@ To run the tests, use the following command:
 go test ./...
 ```
 
-To manually test, you can [curl](https://github.com/curl/curl):
+To manually test, you can use [curl](https://curl.se/download.html):
 
 ```bash
   curl -X POST -H "Content-Type: application/json" -d '{"password": "yourPASSWORD123!"}' http://localhost:8080/validate-password
